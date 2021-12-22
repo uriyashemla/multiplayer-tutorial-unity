@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 
 using System.Collections;
@@ -9,13 +10,13 @@ namespace Com.MyCompany.MyGame
 {
     public class PlayerUI : MonoBehaviour
     {
+
         #region Private Fields
         private PlayerManager target;
 
         [Tooltip("UI Text to display Player's Name")]
         [SerializeField]
         private Text playerNameText;
-
 
         [Tooltip("UI Slider to display Player's Health")]
         [SerializeField]

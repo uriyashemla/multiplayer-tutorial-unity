@@ -10,7 +10,9 @@
 
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 namespace Com.MyCompany.MyGame
 {
@@ -26,6 +28,9 @@ namespace Com.MyCompany.MyGame
 
         [Tooltip("The current Health of our player")]
         public float Health = 1f;
+        
+
+        
 
         [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
         public static GameObject LocalPlayerInstance;
@@ -39,6 +44,8 @@ namespace Com.MyCompany.MyGame
 
         [Tooltip("The Beams GameObject to control")] [SerializeField]
         private GameObject beams;
+
+        public GameObject score;
 
         [SerializeField] string triggeringTag;
 
@@ -68,6 +75,8 @@ namespace Com.MyCompany.MyGame
             if (photonView.IsMine)
             {
                 LocalPlayerInstance = gameObject;
+                score = Instantiate(this.score);
+                score.transform.SetParent(GameObject.FindWithTag("Canvas").transform, false);
             }
 
             // #Critical
@@ -78,12 +87,15 @@ namespace Com.MyCompany.MyGame
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
         /// </summary>
+        /// 
+        
         public void Start()
         {
             // Create the UI
             if (this.playerUiPrefab != null)
             {
                 GameObject _uiGo = Instantiate(this.playerUiPrefab);
+                
                 _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
             }
             else
